@@ -10,12 +10,12 @@ const LandingPage: React.FC = () => {
     <div className="bg-white flex flex-col min-h-screen">
       <header className="sticky top-0 z-50 flex items-center justify-between border-b border-gray-100 bg-white/95 backdrop-blur-md px-6 sm:px-10 py-3">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-auto relative aspect-[3/1] min-w-[120px]">
+          <div className="h-12 w-12 relative flex-shrink-0">
             <Image
               alt="Villas Logo"
               fill
               className="object-contain"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHDvT9sc6h95LeqDegjOw9XtMZnlsf7elEOQ0oWTlUxkNvlUIuPmRb4OQL_d9VXufPpuGNh3_JaJXQJ-Aihs77jYm0c720HsnDIAC1ZgM4eWGNJunHUYO23jmFAQEMykM3AL4LkXy38npbyZInxnJyhxbxWD9xdOlYHPb-onWxxy2xXurpx7MYT0WuvByZa6R4zP2hJEvyhwA8CchGUrvTWxiXCK0psQ7D4KDgVqkEQCCTh5fdotj1W5xerHptFfxrMZNCt11KZVY"
+              src="/assets/logo.png"
             />
           </div>
           <h2 className="text-lg font-bold uppercase tracking-tight text-primary font-logo">Villas Locações</h2>

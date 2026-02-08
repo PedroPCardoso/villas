@@ -21,14 +21,12 @@ const ClientDashboard: React.FC = () => {
             {/* Content */}
             <div className="flex-1 flex flex-col overflow-y-auto hide-scrollbar pb-20">
                 <header className="flex items-center justify-between px-6 pt-2 pb-6 bg-white">
-                    <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-full bg-gray-200 relative overflow-hidden border-2 border-white shadow-md">
-                            <Image fill src="https://picsum.photos/seed/rafael/100/100" alt="Profile" className="object-cover" />
-                        </div>
-                        <div>
-                            <p className="text-xs text-gray-500 font-medium">Bem-vindo,</p>
-                            <h2 className="text-[#A32A2A] text-2xl font-black uppercase font-logo">VILLAS</h2>
-                        </div>
+                    <div className="w-12 h-12 relative">
+                        <Image fill src="/assets/logo.png" alt="Villas Logo" className="object-contain" />
+                    </div>
+                    <div>
+                        <p className="text-xs text-gray-500 font-medium leading-none">Bem-vindo ao</p>
+                        <h2 className="text-[#A32A2A] text-lg font-black uppercase font-logo leading-none mt-1">Villas</h2>
                     </div>
                     <button className="p-2 rounded-full hover:bg-gray-100 transition-colors">
                         <span className="material-symbols-outlined">notifications</span>

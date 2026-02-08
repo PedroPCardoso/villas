@@ -21,12 +21,12 @@ const Sidebar: React.FC = () => {
         <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-screen shrink-0 z-20">
             <div className="h-20 flex items-center px-6 border-b border-gray-100">
                 <Link href="/" className="flex items-center gap-3">
-                    <div className="h-10 w-10 flex items-center justify-center relative">
+                    <div className="h-12 w-12 flex items-center justify-center relative">
                         <Image
                             alt="Villas Locações Logo"
                             fill
                             className="object-contain"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHDvT9sc6h95LeqDegjOw9XtMZnlsf7elEOQ0oWTlUxkNvlUIuPmRb4OQL_d9VXufPpuGNh3_JaJXQJ-Aihs77jYm0c720HsnDIAC1ZgM4eWGNJunHUYO23jmFAQEMykM3AL4LkXy38npbyZInxnJyhxbxWD9xdOlYHPb-onWxxy2xXurpx7MYT0WuvByZa6R4zP2hJEvyhwA8CchGUrvTWxiXCK0psQ7D4KDgVqkEQCCTh5fdotj1W5xerHptFfxrMZNCt11KZVY"
+                            src="/assets/logo.png"
                         />
                     </div>
                     <div>
