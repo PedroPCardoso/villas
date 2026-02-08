@@ -44,8 +44,8 @@ const Sidebar: React.FC = () => {
                             key={item.id}
                             href={item.id}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group ${isActive
-                                    ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                                    : 'text-slate-600 hover:bg-red-50 hover:text-primary'
+                                ? 'bg-primary/10 text-primary border-l-4 border-primary'
+                                : 'text-slate-600 hover:bg-red-50 hover:text-primary'
                                 }`}
                         >
                             <span className={`material-symbols-outlined text-[22px] ${isActive ? 'icon-filled' : ''}`}>
