@@ -108,6 +108,46 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      <section className="py-20 px-6 sm:px-10 bg-white" id="contato">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-12 opacity-10">
+              <span className="material-symbols-outlined text-[300px] text-white rotate-12">mail</span>
+            </div>
+
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-primary text-sm font-bold uppercase tracking-wider mb-2">Fale Conosco</h2>
+                <h3 className="text-3xl sm:text-4xl font-black text-white mb-4">Interessado?</h3>
+                <p className="text-slate-400 mb-8 leading-relaxed">
+                  Preencha o formulário e nossa equipe entrará em contato em breve para apresentar a melhor solução para sua frota.
+                </p>
+                <div className="flex flex-col gap-4 text-slate-300 text-sm">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary">phone</span>
+                    <span>(75) 9262-7640</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary">mail</span>
+                    <span>contato@villaslocacoes.com.br</span>
+                  </div>
+                </div>
+              </div>
+
+              <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); alert('Obrigado! Recebemos seu contato.'); }}>
+                <input type="text" placeholder="Seu Nome" className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-primary transition-colors" required />
+                <input type="email" placeholder="Seu E-mail" className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-primary transition-colors" required />
+                <input type="tel" placeholder="Seu Telefone" className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-primary transition-colors" required />
+                <textarea rows={3} placeholder="Como podemos ajudar?" className="bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                <button type="submit" className="bg-primary hover:bg-primary-hover text-white font-bold py-4 rounded-xl shadow-lg shadow-red-900/20 transition-all active:scale-95 mt-2">
+                  Enviar Mensagem
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="bg-primary text-white py-16 px-6 sm:px-10 mt-auto">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">

@@ -45,3 +45,9 @@ export const INSPECTIONS: Inspection[] = [
     { id: '2', date: '12/10/2023', vehicle: 'Renault Master', plate: 'XYZ-9876', status: 'Manutenção', inspector: 'Maria Souza' },
     { id: '3', date: '11/10/2023', vehicle: 'VW Saveiro', plate: 'JKL-5678', status: 'Aprovado', inspector: 'Pedro Santos' },
 ];
+
+export const LEADS = [
+    { id: '1', name: 'Carlos Ferreira', email: 'carlos.ferreira@email.com', phone: '(11) 99999-8888', message: 'Gostaria de alugar um veículo para Uber.', status: 'Novo', date: 'Hoje' },
+    { id: '2', name: 'Ana Souza', email: 'ana.souza@email.com', phone: '(11) 98888-7777', message: 'Vocês trabalham com aluguel mensal?', status: 'Em Contato', date: 'Ontem' },
+    { id: '3', name: 'Roberto Lima', email: 'roberto.lima@email.com', phone: '(21) 97777-6666', message: 'Tenho interesse na Fiat Fiorino.', status: 'Convertido', date: '10/10' },
+];
