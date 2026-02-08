@@ -16,6 +16,9 @@ const chakraPetch = Chakra_Petch({
 export const metadata: Metadata = {
   title: "Villas Locações - Gestão de Frotas",
   description: "Software #1 em Gestão de Frotas e Locações",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
