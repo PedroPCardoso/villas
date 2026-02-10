@@ -16,18 +16,18 @@ export default function LeadsPage() {
             </div>
 
             {/* Desktop Header */}
-            <div className="hidden md:flex items-center justify-between mb-8 p-8 pb-0">
+            <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Leads</h1>
-                    <p className="text-slate-500">Gerencie os contatos recebidos pelo site.</p>
+                    <h2 className="text-lg font-bold text-slate-900">Leads</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Gerencie os contatos recebidos pelo site</p>
                 </div>
-                <button className="bg-primary text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-red-700 transition-colors">
-                    <span className="material-symbols-outlined">add</span>
+                <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-primary-hover shadow-lg shadow-red-500/20 transition-all">
+                    <span className="material-symbols-outlined text-[20px]">add</span>
                     Novo Lead
                 </button>
-            </div>
+            </header>
 
-            <div className="p-4 md:p-8">
+            <div className="p-4 md:p-8 space-y-6 max-w-[1400px] mx-auto w-full">
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                     <table className="w-full text-left border-collapse">
                         <thead>
@@ -80,7 +80,7 @@ export default function LeadsPage() {
                                         </span>
                                     </td>
                                     <td className="p-4 text-right">
-                                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <div className="flex justify-end gap-2">
                                             <button className="p-2 text-green-600 bg-green-50 rounded-lg hover:bg-green-100" title="WhatsApp">
                                                 <span className="material-symbols-outlined text-[18px]">chat</span>
                                             </button>
@@ -93,6 +93,13 @@ export default function LeadsPage() {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                    <p className="text-sm text-slate-500">Mostrando 1-3 de 15 leads</p>
+                    <div className="flex gap-1">
+                        <button className="px-3 py-1 bg-primary text-white rounded-lg text-sm font-bold">1</button>
+                        <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors">2</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -18,7 +18,10 @@ const FleetManagement: React.FC = () => {
 
             {/* Desktop Header */}
             <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
-                <h2 className="text-lg font-bold text-slate-900">Gestão de Frota</h2>
+                <div>
+                    <h2 className="text-lg font-bold text-slate-900">Gestão de Frota</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Controle completo dos veículos cadastrados</p>
+                </div>
                 <div className="flex items-center gap-4">
                     <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-primary-hover shadow-lg shadow-red-500/20 transition-all">
                         <span className="material-symbols-outlined text-[20px]">add_circle</span>

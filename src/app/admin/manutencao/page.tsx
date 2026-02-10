@@ -22,7 +22,10 @@ const MaintenanceControl: React.FC = () => {
 
             {/* Desktop Header */}
             <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
-                <h2 className="text-lg font-bold text-slate-900">Controle de Manutenção</h2>
+                <div>
+                    <h2 className="text-lg font-bold text-slate-900">Controle de Manutenção</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Gerencie ordens de serviço e manutenções preventivas</p>
+                </div>
                 <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-red-500/20 hover:bg-primary-hover transition-all">
                     <span className="material-symbols-outlined text-[20px]">add</span>
                     Nova Manutenção
@@ -31,9 +34,8 @@ const MaintenanceControl: React.FC = () => {
 
             <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-[1400px] mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {/* ... stats ... */}
+                    {/* Critical Maintenance */}
                     <div className="bg-white p-6 rounded-xl border border-red-200 shadow-sm flex flex-col justify-between h-40">
-                        {/* ... */}
                         <div>
                             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Em Oficina (Imediata)</p>
                             <h3 className="text-3xl font-black text-red-600 mt-2">5</h3>
@@ -42,12 +44,29 @@ const MaintenanceControl: React.FC = () => {
                             <span className="material-symbols-outlined text-sm">warning</span> Crítico
                         </div>
                     </div>
+                    {/* Scheduled Maintenance */}
                     <div className="bg-white p-6 rounded-xl border border-amber-200 shadow-sm flex flex-col justify-between h-40">
                         <div>
                             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Agendadas (7 dias)</p>
                             <h3 className="text-3xl font-black text-amber-600 mt-2">8</h3>
                         </div>
                         <p className="text-xs text-slate-400">Manutenções preventivas</p>
+                    </div>
+                    {/* Completed This Month */}
+                    <div className="bg-white p-6 rounded-xl border border-green-200 shadow-sm flex flex-col justify-between h-40">
+                        <div>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Concluídas (Mês)</p>
+                            <h3 className="text-3xl font-black text-green-600 mt-2">42</h3>
+                        </div>
+                        <p className="text-xs text-slate-400">Serviços finalizados</p>
+                    </div>
+                    {/* Average Cost */}
+                    <div className="bg-white p-6 rounded-xl border border-blue-200 shadow-sm flex flex-col justify-between h-40">
+                        <div>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Custo Médio</p>
+                            <h3 className="text-3xl font-black text-blue-600 mt-2">R$ 850</h3>
+                        </div>
+                        <p className="text-xs text-slate-400">Por ordem de serviço</p>
                     </div>
                 </div>
 
@@ -72,7 +91,6 @@ const MaintenanceControl: React.FC = () => {
                                     <th className="hidden lg:table-cell px-6 py-4">Data Prevista</th>
                                     <th className="px-4 md:px-6 py-4">Prioridade</th>
                                     <th className="px-4 md:px-6 py-4 text-right">Ações</th>
-                                    <th className="md:hidden px-6 py-4">...</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">

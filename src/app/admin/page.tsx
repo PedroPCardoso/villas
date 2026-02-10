@@ -18,10 +18,10 @@ const mockChartData = [
 
 const AdminDashboard: React.FC = () => {
     const stats = [
-        { label: 'Vistorias Hoje', value: '12', trend: '+12%', color: 'primary' },
-        { label: 'Frota Ativa', value: '45/50', trend: '+2%', color: 'blue' },
-        { label: 'Em Manutenção', value: '5', trend: 'Estável', color: 'amber' },
-        { label: 'Faturamento (Mês)', value: 'R$ 124k', trend: '+8%', color: 'emerald' },
+        { label: 'Vistorias Hoje', value: '12', trend: '+12%', trendType: 'positive', icon: 'fact_check', color: 'primary' },
+        { label: 'Frota Ativa', value: '45/50', trend: '+2%', trendType: 'positive', icon: 'directions_car', color: 'blue' },
+        { label: 'Em Manutenção', value: '5', trend: 'Estável', trendType: 'neutral', icon: 'build', color: 'amber' },
+        { label: 'Faturamento (Mês)', value: 'R$ 124k', trend: '+8%', trendType: 'positive', icon: 'payments', color: 'emerald' },
     ];
 
     return (
@@ -40,7 +40,10 @@ const AdminDashboard: React.FC = () => {
 
             {/* Desktop Header */}
             <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
-                <h2 className="text-lg font-bold text-slate-900">Visão Geral</h2>
+                <div>
+                    <h2 className="text-lg font-bold text-slate-900">Visão Geral</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Resumo operacional do dia</p>
+                </div>
                 <div className="flex items-center gap-4">
                     <div className="relative">
                         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
@@ -62,11 +65,14 @@ const AdminDashboard: React.FC = () => {
                                 <h3 className="text-3xl font-black text-slate-900 mt-2">{s.value}</h3>
                             </div>
                             <div className="flex items-center gap-1.5 z-10">
-                                <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">{s.trend}</span>
+                                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${s.trendType === 'positive' ? 'text-green-600 bg-green-50' :
+                                        s.trendType === 'neutral' ? 'text-slate-500 bg-slate-100' :
+                                            'text-red-600 bg-red-50'
+                                    }`}>{s.trend}</span>
                                 <span className="text-[10px] text-slate-400">vs. período anterior</span>
                             </div>
                             <div className="absolute -bottom-2 -right-2 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <span className="material-symbols-outlined text-[100px]">trending_up</span>
+                                <span className="material-symbols-outlined text-[100px]">{s.icon}</span>
                             </div>
                         </div>
                     ))}
@@ -75,7 +81,10 @@ const AdminDashboard: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col">
                         <div className="p-6 border-b border-gray-100 flex justify-between items-center">
-                            <h3 className="font-bold text-slate-900">Vistorias por Dia</h3>
+                            <div>
+                                <h3 className="font-bold text-slate-900">Vistorias por Dia</h3>
+                                <p className="text-xs text-slate-400 mt-1">Acompanhe o volume de inspeções realizadas</p>
+                            </div>
                             <select className="text-xs border-gray-200 rounded-lg outline-none">
                                 <option>Últimos 7 dias</option>
                             </select>
@@ -129,7 +138,10 @@ const AdminDashboard: React.FC = () => {
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                     <div className="p-6 border-b border-gray-100 flex justify-between items-center">
                         <h3 className="font-bold text-slate-900">Vistorias Recentes</h3>
-                        <Link href="/admin/frota" className="text-sm font-bold text-primary hover:underline">Ver tudo</Link>
+                        <Link href="/admin/frota" className="text-sm font-bold text-primary hover:underline flex items-center gap-1">
+                            Ver tudo
+                            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        </Link>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">

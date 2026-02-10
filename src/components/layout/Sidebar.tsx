@@ -58,6 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+                    <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Navegação</p>
                     {menuItems.map((item) => {
                         const isActive = pathname === item.id;
                         return (
@@ -65,11 +66,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                                 key={item.id}
                                 href={item.id}
                                 onClick={onClose}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group ${isActive
-                                    ? 'bg-primary/10 text-primary border-l-4 border-primary'
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group relative ${isActive
+                                    ? 'bg-primary/10 text-primary'
                                     : 'text-slate-600 hover:bg-red-50 hover:text-primary'
                                     }`}
                             >
+                                {isActive && (
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-r-full" />
+                                )}
                                 <span className={`material-symbols-outlined text-[22px] ${isActive ? 'icon-filled' : ''}`}>
                                     {item.icon}
                                 </span>

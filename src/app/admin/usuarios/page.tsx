@@ -22,7 +22,10 @@ const UserManagement: React.FC = () => {
 
             {/* Desktop Header */}
             <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
-                <h2 className="text-lg font-bold text-slate-900">Gestão de Usuários</h2>
+                <div>
+                    <h2 className="text-lg font-bold text-slate-900">Gestão de Usuários</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Administre permissões e acessos do sistema</p>
+                </div>
                 <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-red-500/20 hover:bg-primary-hover transition-all">
                     <span className="material-symbols-outlined text-[20px]">person_add</span>
                     Adicionar Usuário
@@ -86,6 +89,14 @@ const UserManagement: React.FC = () => {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+                    <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                        <p className="text-sm text-slate-500">Mostrando 1-3 de 45 usuários</p>
+                        <div className="flex gap-1">
+                            <button className="px-3 py-1 bg-primary text-white rounded-lg text-sm font-bold">1</button>
+                            <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors">2</button>
+                            <button className="px-3 py-1 bg-white border border-gray-200 rounded-lg text-sm hover:bg-gray-50 transition-colors">3</button>
+                        </div>
                     </div>
                 </div>
             </div>
