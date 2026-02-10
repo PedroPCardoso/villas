@@ -12,7 +12,16 @@ const MaintenanceControl: React.FC = () => {
 
     return (
         <div className="flex flex-col h-full bg-[#f6f6f8]">
-            <header className="h-16 px-8 flex items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
+            {/* Mobile Action Bar */}
+            <div className="md:hidden p-4 bg-white border-b border-gray-200 sticky top-0 z-10 space-y-3">
+                <button className="w-full bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-primary-hover shadow-lg shadow-red-500/20 transition-all">
+                    <span className="material-symbols-outlined text-[20px]">add</span>
+                    Nova Manutenção
+                </button>
+            </div>
+
+            {/* Desktop Header */}
+            <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
                 <h2 className="text-lg font-bold text-slate-900">Controle de Manutenção</h2>
                 <button className="bg-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-red-500/20 hover:bg-primary-hover transition-all">
                     <span className="material-symbols-outlined text-[20px]">add</span>
@@ -20,9 +29,11 @@ const MaintenanceControl: React.FC = () => {
                 </button>
             </header>
 
-            <div className="p-8 space-y-8 max-w-[1400px] mx-auto w-full">
+            <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-[1400px] mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* ... stats ... */}
                     <div className="bg-white p-6 rounded-xl border border-red-200 shadow-sm flex flex-col justify-between h-40">
+                        {/* ... */}
                         <div>
                             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Em Oficina (Imediata)</p>
                             <h3 className="text-3xl font-black text-red-600 mt-2">5</h3>
@@ -56,31 +67,32 @@ const MaintenanceControl: React.FC = () => {
                         <table className="w-full text-left">
                             <thead>
                                 <tr className="bg-gray-50/50 text-[10px] uppercase font-bold text-slate-400 tracking-wider border-b border-gray-100">
-                                    <th className="px-6 py-4">Veículo</th>
-                                    <th className="px-6 py-4">Descrição do Problema</th>
-                                    <th className="px-6 py-4">Data Prevista</th>
-                                    <th className="px-6 py-4">Prioridade</th>
-                                    <th className="px-6 py-4 text-right">Ações</th>
+                                    <th className="px-4 md:px-6 py-4">Veículo</th>
+                                    <th className="hidden md:table-cell px-6 py-4">Descrição do Problema</th>
+                                    <th className="hidden lg:table-cell px-6 py-4">Data Prevista</th>
+                                    <th className="px-4 md:px-6 py-4">Prioridade</th>
+                                    <th className="px-4 md:px-6 py-4 text-right">Ações</th>
+                                    <th className="md:hidden px-6 py-4">...</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {tasks.map((t, i) => (
                                     <tr key={i} className={`hover:bg-gray-50 transition-colors border-l-4 ${t.priority === 'Imediata' ? 'border-l-red-500' : 'border-l-amber-500'}`}>
-                                        <td className="px-6 py-4">
+                                        <td className="px-4 md:px-6 py-4">
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-bold text-slate-900">{t.vehicle}</span>
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase">{t.plate}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-slate-600 max-w-xs truncate">{t.problem}</td>
-                                        <td className="px-6 py-4 text-sm text-slate-900 font-medium">{t.date}</td>
-                                        <td className="px-6 py-4">
+                                        <td className="hidden md:table-cell px-6 py-4 text-sm text-slate-600 max-w-xs truncate">{t.problem}</td>
+                                        <td className="hidden lg:table-cell px-6 py-4 text-sm text-slate-900 font-medium">{t.date}</td>
+                                        <td className="px-4 md:px-6 py-4">
                                             <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${t.priority === 'Imediata' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'
                                                 }`}>
                                                 {t.priority}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 text-right">
+                                        <td className="px-4 md:px-6 py-4 text-right">
                                             <button className="text-slate-400 hover:text-primary transition-colors">
                                                 <span className="material-symbols-outlined">edit_document</span>
                                             </button>

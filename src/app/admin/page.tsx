@@ -26,7 +26,20 @@ const AdminDashboard: React.FC = () => {
 
     return (
         <div className="flex flex-col h-full bg-[#f6f6f8]">
-            <header className="h-16 px-8 flex items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
+            {/* Mobile Action Bar */}
+            <div className="md:hidden p-4 bg-white border-b border-gray-200 sticky top-0 z-10 space-y-3">
+                <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                    <input className="w-full pl-10 pr-4 py-2 bg-slate-100 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Buscar veículo..." />
+                </div>
+                <button className="w-full bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-primary-hover shadow-sm">
+                    <span className="material-symbols-outlined text-[20px]">add</span>
+                    Nova Vistoria
+                </button>
+            </div>
+
+            {/* Desktop Header */}
+            <header className="hidden md:flex h-16 px-8 items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-10">
                 <h2 className="text-lg font-bold text-slate-900">Visão Geral</h2>
                 <div className="flex items-center gap-4">
                     <div className="relative">
@@ -40,7 +53,7 @@ const AdminDashboard: React.FC = () => {
                 </div>
             </header>
 
-            <div className="p-8 space-y-8 max-w-[1400px] mx-auto w-full">
+            <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-[1400px] mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {stats.map((s, i) => (
                         <div key={i} className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between h-40 relative overflow-hidden group hover:border-primary/30 transition-colors">
@@ -122,26 +135,26 @@ const AdminDashboard: React.FC = () => {
                         <table className="w-full text-left">
                             <thead>
                                 <tr className="bg-gray-50/50 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                                    <th className="px-6 py-4">Data</th>
-                                    <th className="px-6 py-4">Veículo</th>
-                                    <th className="px-6 py-4 text-center">Status</th>
-                                    <th className="px-6 py-4">Inspetor</th>
-                                    <th className="px-6 py-4 text-right">Ação</th>
+                                    <th className="px-4 md:px-6 py-4">Data</th>
+                                    <th className="px-4 md:px-6 py-4">Veículo</th>
+                                    <th className="px-4 md:px-6 py-4 text-center">Status</th>
+                                    <th className="hidden sm:table-cell px-6 py-4">Inspetor</th>
+                                    <th className="px-4 md:px-6 py-4 text-right">Ação</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {INSPECTIONS.map((ins, i) => (
                                     <tr key={i} className="hover:bg-gray-50 transition-colors group">
-                                        <td className="px-6 py-4 text-sm text-slate-600">{ins.date}</td>
-                                        <td className="px-6 py-4 text-sm font-bold text-slate-900">{ins.vehicle}</td>
-                                        <td className="px-6 py-4 text-center">
+                                        <td className="px-4 md:px-6 py-4 text-sm text-slate-600">{ins.date}</td>
+                                        <td className="px-4 md:px-6 py-4 text-sm font-bold text-slate-900">{ins.vehicle}</td>
+                                        <td className="px-4 md:px-6 py-4 text-center">
                                             <span className={`inline-flex px-2 py-1 rounded-full text-[10px] font-bold uppercase ${ins.status === 'Aprovado' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                                                 }`}>
                                                 {ins.status}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-slate-500">{ins.inspector}</td>
-                                        <td className="px-6 py-4 text-right">
+                                        <td className="hidden sm:table-cell px-6 py-4 text-sm text-slate-500">{ins.inspector}</td>
+                                        <td className="px-4 md:px-6 py-4 text-right">
                                             <button className="p-1 hover:text-primary"><span className="material-symbols-outlined text-lg">visibility</span></button>
                                         </td>
                                     </tr>
