@@ -1,0 +1,7 @@
+{
+  "name": "Villas Locações",
+  "description": "Uma plataforma completa de gestão de frotas e locação de veículos com dashboards administrativos, controle de manutenção e área do cliente.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
