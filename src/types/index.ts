@@ -8,7 +8,8 @@ export type AppView =
   | 'CLIENT_DASHBOARD' 
   | 'CATALOG' 
   | 'INSPECTION' 
-  | 'BILLING';
+  | 'BILLING'
+  | 'RENTALS';
 
 export interface Vehicle {
   id: string;
@@ -34,4 +35,22 @@ export interface Inspection {
   plate: string;
   status: 'Aprovado' | 'Manutenção' | 'Atenção' | 'Reprovado';
   inspector: string;
+}
+
+export interface Rental {
+  id: string;
+  vehicleId: string;
+  vehicleName: string;
+  vehiclePlate: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  startDate: string;
+  endDate: string;
+  dailyRate: number;
+  totalValue: number;
+  status: 'Ativa' | 'Finalizada' | 'Atrasada' | 'Cancelada';
+  notifyBeforeEnd: boolean;
+  notifyDaysBefore: number;
+  notes: string;
 }

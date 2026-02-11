@@ -9,6 +9,7 @@ import Image from 'next/image';
 const menuItems = [
     { id: '/admin', label: 'Dashboard', icon: 'dashboard' },
     { id: '/admin/frota', label: 'Veículos', icon: 'directions_car' },
+    { id: '/admin/locacoes', label: 'Locações', icon: 'car_rental' },
     { id: '/admin/usuarios', label: 'Usuários', icon: 'group' },
     { id: '/admin/leads', label: 'Leads', icon: 'person_add' },
     { id: '/admin/cobrancas', label: 'Cobranças', icon: 'receipt_long' },

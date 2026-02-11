@@ -1,5 +1,5 @@
 
-import { Vehicle, Inspection } from '../types';
+import { Vehicle, Inspection, Rental } from '../types';
 
 export const VEHICLES: Vehicle[] = [
     {
@@ -50,4 +50,92 @@ export const LEADS = [
     { id: '1', name: 'Carlos Ferreira', email: 'carlos.ferreira@email.com', phone: '(11) 99999-8888', message: 'Gostaria de alugar um veículo para Uber.', status: 'Novo', date: 'Hoje' },
     { id: '2', name: 'Ana Souza', email: 'ana.souza@email.com', phone: '(11) 98888-7777', message: 'Vocês trabalham com aluguel mensal?', status: 'Em Contato', date: 'Ontem' },
     { id: '3', name: 'Roberto Lima', email: 'roberto.lima@email.com', phone: '(21) 97777-6666', message: 'Tenho interesse na Fiat Fiorino.', status: 'Convertido', date: '10/10' },
+];
+
+export const RENTALS: Rental[] = [
+    {
+        id: '1',
+        vehicleId: '1',
+        vehicleName: 'Toyota Corolla 2024',
+        vehiclePlate: 'ABC-1234',
+        clientName: 'Carlos Mendes',
+        clientEmail: 'carlos.mendes@email.com',
+        clientPhone: '(11) 98765-4321',
+        startDate: '2024-02-01',
+        endDate: '2024-02-15',
+        dailyRate: 180,
+        totalValue: 2520,
+        status: 'Ativa',
+        notifyBeforeEnd: true,
+        notifyDaysBefore: 3,
+        notes: 'Cliente frequente, preferência por veículos premium.'
+    },
+    {
+        id: '2',
+        vehicleId: '2',
+        vehicleName: 'Honda Civic 2024',
+        vehiclePlate: 'XYZ-9876',
+        clientName: 'Patricia Oliveira',
+        clientEmail: 'patricia.oliveira@email.com',
+        clientPhone: '(21) 99876-5432',
+        startDate: '2024-01-20',
+        endDate: '2024-02-20',
+        dailyRate: 190,
+        totalValue: 5890,
+        status: 'Ativa',
+        notifyBeforeEnd: true,
+        notifyDaysBefore: 5,
+        notes: 'Locação mensal para uso executivo.'
+    },
+    {
+        id: '3',
+        vehicleId: '3',
+        vehicleName: 'Chevrolet Onix Plus',
+        vehiclePlate: 'MNO-9012',
+        clientName: 'Roberto Santos',
+        clientEmail: 'roberto.santos@email.com',
+        clientPhone: '(11) 97654-3210',
+        startDate: '2024-01-10',
+        endDate: '2024-02-05',
+        dailyRate: 120,
+        totalValue: 3120,
+        status: 'Finalizada',
+        notifyBeforeEnd: false,
+        notifyDaysBefore: 0,
+        notes: 'Locação finalizada sem pendências.'
+    },
+    {
+        id: '4',
+        vehicleId: '1',
+        vehicleName: 'Toyota Corolla 2024',
+        vehiclePlate: 'ABC-1234',
+        clientName: 'Mariana Silva',
+        clientEmail: 'mariana.silva@email.com',
+        clientPhone: '(11) 96543-2109',
+        startDate: '2024-01-05',
+        endDate: '2024-02-01',
+        dailyRate: 180,
+        totalValue: 4860,
+        status: 'Atrasada',
+        notifyBeforeEnd: true,
+        notifyDaysBefore: 2,
+        notes: 'Cliente não devolveu o veículo na data prevista.'
+    },
+    {
+        id: '5',
+        vehicleId: '2',
+        vehicleName: 'Honda Civic 2024',
+        vehiclePlate: 'XYZ-9876',
+        clientName: 'Eduardo Costa',
+        clientEmail: 'eduardo.costa@email.com',
+        clientPhone: '(21) 95432-1098',
+        startDate: '2024-02-10',
+        endDate: '2024-02-12',
+        dailyRate: 190,
+        totalValue: 380,
+        status: 'Cancelada',
+        notifyBeforeEnd: false,
+        notifyDaysBefore: 0,
+        notes: 'Cancelamento solicitado pelo cliente 1 dia antes.'
+    }
 ];
