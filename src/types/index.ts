@@ -1,13 +1,13 @@
 
-export type AppView = 
-  | 'LANDING' 
-  | 'ADMIN_DASHBOARD' 
-  | 'FLEET' 
-  | 'USERS' 
-  | 'MAINTENANCE' 
-  | 'CLIENT_DASHBOARD' 
-  | 'CATALOG' 
-  | 'INSPECTION' 
+export type AppView =
+  | 'LANDING'
+  | 'ADMIN_DASHBOARD'
+  | 'FLEET'
+  | 'USERS'
+  | 'MAINTENANCE'
+  | 'CLIENT_DASHBOARD'
+  | 'CATALOG'
+  | 'INSPECTION'
   | 'BILLING'
   | 'RENTALS';
 
@@ -45,6 +45,7 @@ export interface Rental {
   clientName: string;
   clientEmail: string;
   clientPhone: string;
+  clientCpf: string;       // CPF para vínculo com usuário
   startDate: string;
   endDate: string;
   dailyRate: number;
@@ -53,4 +54,24 @@ export interface Rental {
   notifyBeforeEnd: boolean;
   notifyDaysBefore: number;
   notes: string;
+}
+
+export interface ClientUser {
+  id: string;
+  name: string;
+  cpf: string;
+  email: string;
+  phone: string;
+  photoUrl?: string;
+}
+
+export interface FinancialRecord {
+  id: string;
+  clientId: string;
+  type: 'Boleto' | 'Fatura';
+  description: string;
+  value: number;
+  dueDate: string;
+  status: 'Pendente' | 'Pago' | 'Atrasado';
+  pdfUrl?: string;
 }

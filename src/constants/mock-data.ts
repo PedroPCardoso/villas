@@ -52,6 +52,55 @@ export const LEADS = [
     { id: '3', name: 'Roberto Lima', email: 'roberto.lima@email.com', phone: '(21) 97777-6666', message: 'Tenho interesse na Fiat Fiorino.', status: 'Convertido', date: '10/10' },
 ];
 
+export const CLIENTS: import('../types').ClientUser[] = [
+    {
+        id: '1',
+        name: 'Carlos Mendes',
+        cpf: '123.456.789-00',
+        email: 'carlos.mendes@email.com',
+        phone: '(11) 98765-4321',
+        photoUrl: 'https://i.pravatar.cc/150?u=carlos'
+    },
+    {
+        id: '2',
+        name: 'Patricia Oliveira',
+        cpf: '987.654.321-00',
+        email: 'patricia.oliveira@email.com',
+        phone: '(21) 99876-5432',
+        photoUrl: 'https://i.pravatar.cc/150?u=patricia'
+    }
+];
+
+export const FINANCIAL_RECORDS: import('../types').FinancialRecord[] = [
+    {
+        id: '1',
+        clientId: '1',
+        type: 'Fatura',
+        description: 'Locação Mensal - Janeiro',
+        value: 2520.00,
+        dueDate: '2024-02-05',
+        status: 'Pago'
+    },
+    {
+        id: '2',
+        clientId: '1',
+        type: 'Boleto',
+        description: 'Locação Mensal - Fevereiro',
+        value: 2520.00,
+        dueDate: '2024-03-05',
+        status: 'Pendente'
+    },
+    {
+        id: '3',
+        clientId: '1',
+        type: 'Boleto',
+        description: 'Multa de Trânsito',
+        value: 150.00,
+        dueDate: '2024-02-15',
+        status: 'Atrasado'
+    }
+];
+
 export const RENTALS: Rental[] = [
     {
         id: '1',
@@ -61,6 +110,7 @@ export const RENTALS: Rental[] = [
         clientName: 'Carlos Mendes',
         clientEmail: 'carlos.mendes@email.com',
         clientPhone: '(11) 98765-4321',
+        clientCpf: '123.456.789-00',
         startDate: '2024-02-01',
         endDate: '2024-02-15',
         dailyRate: 180,
@@ -78,6 +128,7 @@ export const RENTALS: Rental[] = [
         clientName: 'Patricia Oliveira',
         clientEmail: 'patricia.oliveira@email.com',
         clientPhone: '(21) 99876-5432',
+        clientCpf: '987.654.321-00',
         startDate: '2024-01-20',
         endDate: '2024-02-20',
         dailyRate: 190,
@@ -95,6 +146,7 @@ export const RENTALS: Rental[] = [
         clientName: 'Roberto Santos',
         clientEmail: 'roberto.santos@email.com',
         clientPhone: '(11) 97654-3210',
+        clientCpf: '111.222.333-44',
         startDate: '2024-01-10',
         endDate: '2024-02-05',
         dailyRate: 120,
@@ -112,6 +164,7 @@ export const RENTALS: Rental[] = [
         clientName: 'Mariana Silva',
         clientEmail: 'mariana.silva@email.com',
         clientPhone: '(11) 96543-2109',
+        clientCpf: '555.666.777-88',
         startDate: '2024-01-05',
         endDate: '2024-02-01',
         dailyRate: 180,
@@ -129,6 +182,7 @@ export const RENTALS: Rental[] = [
         clientName: 'Eduardo Costa',
         clientEmail: 'eduardo.costa@email.com',
         clientPhone: '(21) 95432-1098',
+        clientCpf: '999.888.777-66',
         startDate: '2024-02-10',
         endDate: '2024-02-12',
         dailyRate: 190,

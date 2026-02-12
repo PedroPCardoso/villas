@@ -1,11 +1,41 @@
 
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { RENTALS, FINANCIAL_RECORDS, VEHICLES } from '@/constants/mock-data';
+import { ClientUser } from '@/types';
 
 const ClientDashboard: React.FC = () => {
+    const router = useRouter();
+    const [user, setUser] = useState<ClientUser | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Check for session
+        const storedUser = localStorage.getItem('villas_client_user');
+        if (!storedUser) {
+            router.push('/cliente/login');
+            return;
+        }
+        setUser(JSON.parse(storedUser));
+        setLoading(false);
+    }, [router]);
+
+    if (loading || !user) return null;
+
+    // Filter data for the logged user
+    const activeRentals = RENTALS.filter(r => r.clientCpf === user.cpf && r.status === 'Ativa');
+    const myFinancials = FINANCIAL_RECORDS.filter(f => f.clientId === user.id);
+    const pendingFinancials = myFinancials.filter(f => f.status === 'Pendente' || f.status === 'Atrasado');
+
+    const handleLogout = () => {
+        localStorage.removeItem('villas_client_user');
+        router.push('/cliente/login');
+    };
+
     return (
         <>
             {/* Status Bar */}
@@ -25,40 +55,54 @@ const ClientDashboard: React.FC = () => {
                         <Image fill src="/assets/logo.png" alt="Villas Logo" className="object-contain" />
                     </div>
                     <div>
-                        <p className="text-xs text-gray-500 font-medium leading-none">Bem-vindo ao</p>
-                        <h2 className="text-[#A32A2A] text-lg font-black uppercase font-logo leading-none mt-1">Villas</h2>
+                        <p className="text-xs text-gray-500 font-medium leading-none">Bem-vindo,</p>
+                        <h2 className="text-[#A32A2A] text-lg font-black uppercase font-logo leading-none mt-1">{user.name.split(' ')[0]}</h2>
                     </div>
-                    <button className="p-2 rounded-full hover:bg-gray-100 transition-colors">
-                        <span className="material-symbols-outlined">notifications</span>
+                    <button onClick={handleLogout} className="p-2 rounded-full hover:bg-gray-100 transition-colors text-slate-400 hover:text-red-600">
+                        <span className="material-symbols-outlined">logout</span>
                     </button>
                 </header>
 
                 <div className="px-5 mb-6 mt-4">
-                    <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
-                        <div className="flex justify-between items-start mb-4">
-                            <div>
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wide border border-green-100">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                                    Locação Ativa
-                                </span>
-                                <h3 className="text-gray-900 text-xl font-bold mt-2.5">VW Virtus 1.6 MSI</h3>
-                                <p className="text-gray-500 text-sm">Placa: ABC-1234</p>
-                            </div>
+                    {activeRentals.length > 0 ? (
+                        activeRentals.map(rental => {
+                            const vehicle = VEHICLES.find(v => v.id === rental.vehicleId);
+                            return (
+                                <div key={rental.id} className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm mb-4">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div>
+                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wide border border-green-100">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                                Locação Ativa
+                                            </span>
+                                            <h3 className="text-gray-900 text-xl font-bold mt-2.5">{rental.vehicleName}</h3>
+                                            <p className="text-gray-500 text-sm">Placa: {rental.vehiclePlate}</p>
+                                        </div>
+                                    </div>
+                                    <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-5 bg-gray-50">
+                                        {vehicle && <Image fill src={vehicle.image} className="object-contain" alt="Car" />}
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-gray-50 border border-gray-100">
+                                            <span className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-1">Devolução</span>
+                                            <span className="text-base font-bold text-gray-900">{new Date(rental.endDate).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}</span>
+                                        </div>
+                                        <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-gray-50 border border-gray-100">
+                                            <span className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-1">Valor Total</span>
+                                            <span className="text-base font-bold text-gray-900">R$ {rental.totalValue.toLocaleString('pt-BR')}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm text-center">
+                            <span className="material-symbols-outlined text-4xl text-gray-300 mb-2">no_crash</span>
+                            <h3 className="text-gray-900 font-bold">Nenhuma locação ativa</h3>
+                            <p className="text-sm text-gray-500 mt-1">Você não possui veículos alugados no momento.</p>
+                            <Link href="/catalogo" className="mt-4 inline-block text-primary font-bold text-sm hover:underline">Ver Catálogo</Link>
                         </div>
-                        <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-5 bg-gray-50">
-                            <Image fill src="https://lh3.googleusercontent.com/aida-public/AB6AXuAohq6ph4p5RtGirRkg1Qs2Ig7A3prnWoVSh77f4GNAJhw_xvSYhb6Npdey2UuqBIWr4LWoHx7___s3NMacBDx_-XsNNggsbFdZeYMARlR3eVoeHDTSDtSBIlra8NqKhHd5otRjyJHm2d8jpFcmIqJwUawB9c7fnTX6DTeKkhAm212e7olicSfz8oM_f65T0-vvPIypsqwg7ss7wz51aOcHKCmZo_KJdJ2emJc4hSrWV5_TgMuVrfww99XotnCPxfj8I4xG0CN0b4k" className="object-contain" alt="Car" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-gray-50 border border-gray-100">
-                                <span className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-1">Próxima Parcela</span>
-                                <span className="text-base font-bold text-gray-900">15 Out</span>
-                            </div>
-                            <div className="flex flex-col items-center justify-center p-3 rounded-2xl bg-gray-50 border border-gray-100">
-                                <span className="text-[11px] uppercase tracking-wider text-gray-400 font-semibold mb-1">KM Atual</span>
-                                <span className="text-base font-bold text-gray-900">42.890 km</span>
-                            </div>
-                        </div>
-                    </div>
+                    )}
                 </div>
 
                 <div className="px-5 mb-6">
@@ -81,6 +125,43 @@ const ClientDashboard: React.FC = () => {
                 </div>
 
                 <div className="px-5 mb-6">
+                    <h3 className="font-bold text-lg mb-4 flex items-center justify-between">
+                        Financeiro
+                        {pendingFinancials.length > 0 && <span className="bg-red-100 text-red-600 text-[10px] px-2 py-0.5 rounded-full">{pendingFinancials.length} pendentes</span>}
+                    </h3>
+
+                    {myFinancials.length > 0 ? (
+                        <div className="flex flex-col gap-3">
+                            {myFinancials.map(record => (
+                                <div key={record.id} className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${record.status === 'Pago' ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600'}`}>
+                                            <span className="material-symbols-outlined">{record.type === 'Fatura' ? 'receipt_long' : 'barcode'}</span>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-slate-900 font-bold text-sm">{record.description}</span>
+                                            <span className="text-[10px] text-gray-400">Vence em {new Date(record.dueDate).toLocaleDateString('pt-BR')}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col items-end">
+                                        <span className="font-bold text-slate-900">R$ {record.value}</span>
+                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${record.status === 'Pago' ? 'bg-green-100 text-green-700' :
+                                                record.status === 'Atrasado' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'
+                                            }`}>
+                                            {record.status}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="p-4 bg-white rounded-2xl border border-gray-100 text-center text-sm text-gray-500">
+                            Nenhum registro financeiro encontrado.
+                        </div>
+                    )}
+                </div>
+
+                <div className="px-5 mb-6">
                     <h3 className="font-bold text-lg mb-4">Acesso Rápido</h3>
                     <div className="grid grid-cols-2 gap-4">
                         <button className="flex flex-col items-start gap-3 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm text-left hover:bg-gray-50 transition-colors">
@@ -95,10 +176,11 @@ const ClientDashboard: React.FC = () => {
                         <Link href="/cliente/faturas" className="flex flex-col items-start gap-3 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm text-left hover:bg-gray-50 transition-colors">
                             <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
                                 <span className="material-symbols-outlined">description</span>
+                                <div className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></div>
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-gray-900 font-bold">Faturas</span>
-                                <span className="text-[10px] text-gray-400">Boletos e histórico</span>
+                                <span className="text-[10px] text-gray-400">Ver todas</span>
                             </div>
                         </Link>
                     </div>
