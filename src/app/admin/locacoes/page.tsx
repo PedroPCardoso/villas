@@ -1,14 +1,23 @@
-
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RENTALS, VEHICLES } from '@/constants/mock-data';
 import Image from 'next/image';
 
+// Mock users for the dropdown
+const MOCK_USERS = [
+    { id: '1', name: 'João Silva', email: 'joao.silva@vilas.com', phone: '(11) 99999-1111', role: 'Motorista' },
+    { id: '3', name: 'Pedro Santos', email: 'pedro.santos@vilas.com', phone: '(11) 99999-3333', role: 'Motorista' },
+    { id: '4', name: 'Carlos Ferreira', email: 'carlos.ferreira@email.com', phone: '(11) 99999-8888', role: 'Motorista' },
+    { id: '5', name: 'Ana Souza', email: 'ana.souza@email.com', phone: '(11) 98888-7777', role: 'Motorista' },
+];
+
 const RentalsPage: React.FC = () => {
     const [showForm, setShowForm] = useState(false);
+    const [userType, setUserType] = useState<'existing' | 'new'>('existing');
     const [formData, setFormData] = useState({
         vehicleId: '',
+        userId: '',
         clientName: '',
         clientEmail: '',
         clientPhone: '',
@@ -96,56 +105,124 @@ const RentalsPage: React.FC = () => {
                             <p className="text-xs text-slate-400">Preencha os dados abaixo para registrar uma nova locação.</p>
                         </div>
                         <form className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                            <div className="md:col-span-6">
-                                <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Selecionar Veículo</label>
-                                <select
-                                    value={formData.vehicleId}
-                                    onChange={(e) => {
-                                        const vehicle = VEHICLES.find(v => v.id === e.target.value);
-                                        setFormData({
-                                            ...formData,
-                                            vehicleId: e.target.value,
-                                            dailyRate: vehicle?.price || 0
-                                        });
-                                    }}
-                                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
-                                >
-                                    <option value="">Selecione um veículo...</option>
-                                    {VEHICLES.filter(v => v.status === 'Disponível').map(v => (
-                                        <option key={v.id} value={v.id}>
-                                            {v.name} - {v.plate} (R$ {v.price}/dia)
-                                        </option>
-                                    ))}
-                                </select>
+                            <div className="md:col-span-12 flex gap-4 border-b border-gray-100 pb-4 mb-2">
+                                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="userType"
+                                        checked={userType === 'existing'}
+                                        onChange={() => setUserType('existing')}
+                                        className="text-primary focus:ring-primary"
+                                    />
+                                    Cliente Existente
+                                </label>
+                                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="userType"
+                                        checked={userType === 'new'}
+                                        onChange={() => {
+                                            setUserType('new');
+                                            setFormData(prev => ({ ...prev, userId: '', clientName: '', clientEmail: '', clientPhone: '' }));
+                                        }}
+                                        className="text-primary focus:ring-primary"
+                                    />
+                                    Novo Cliente
+                                </label>
                             </div>
-                            <div className="md:col-span-6">
-                                <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Nome do Cliente</label>
-                                <input
-                                    value={formData.clientName}
-                                    onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
-                                    placeholder="Nome completo"
-                                />
+
+                            <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-12 gap-6">
+                                <div className="md:col-span-6">
+                                    <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Selecionar Veículo</label>
+                                    <select
+                                        value={formData.vehicleId}
+                                        onChange={(e) => {
+                                            const vehicle = VEHICLES.find(v => v.id === e.target.value);
+                                            setFormData({
+                                                ...formData,
+                                                vehicleId: e.target.value,
+                                                dailyRate: vehicle?.price || 0
+                                            });
+                                        }}
+                                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
+                                    >
+                                        <option value="">Selecione um veículo...</option>
+                                        {VEHICLES.filter(v => v.status === 'Disponível').map(v => (
+                                            <option key={v.id} value={v.id}>
+                                                {v.name} - {v.plate} (R$ {v.price}/dia)
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {userType === 'existing' ? (
+                                    <div className="md:col-span-6">
+                                        <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Selecionar Motorista</label>
+                                        <select
+                                            value={formData.userId}
+                                            onChange={(e) => {
+                                                const user = MOCK_USERS.find(u => u.id === e.target.value);
+                                                if (user) {
+                                                    setFormData({
+                                                        ...formData,
+                                                        userId: user.id,
+                                                        clientName: user.name,
+                                                        clientEmail: user.email,
+                                                        clientPhone: user.phone
+                                                    });
+                                                } else {
+                                                    setFormData(prev => ({ ...prev, userId: '', clientName: '', clientEmail: '', clientPhone: '' }));
+                                                }
+                                            }}
+                                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
+                                        >
+                                            <option value="">Selecione um motorista...</option>
+                                            {MOCK_USERS.map(u => (
+                                                <option key={u.id} value={u.id}>
+                                                    {u.name} - {u.role}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : (
+                                    <div className="md:col-span-6">
+                                        <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Nome do Cliente</label>
+                                        <input
+                                            value={formData.clientName}
+                                            onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
+                                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
+                                            placeholder="Nome completo"
+                                        />
+                                    </div>
+                                )}
                             </div>
-                            <div className="md:col-span-6">
-                                <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Email</label>
-                                <input
-                                    type="email"
-                                    value={formData.clientEmail}
-                                    onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
-                                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
-                                    placeholder="email@exemplo.com"
-                                />
-                            </div>
-                            <div className="md:col-span-6">
-                                <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Telefone</label>
-                                <input
-                                    value={formData.clientPhone}
-                                    onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
-                                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary"
-                                    placeholder="(11) 99999-9999"
-                                />
-                            </div>
+
+                            {(userType === 'new' || formData.userId) && (
+                                <>
+                                    <div className="md:col-span-6">
+                                        <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Email</label>
+                                        <input
+                                            type="email"
+                                            value={formData.clientEmail}
+                                            readOnly={userType === 'existing'}
+                                            onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
+                                            className={`w-full px-4 py-2.5 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary ${userType === 'existing' ? 'bg-gray-100 text-slate-500' : 'bg-gray-50'}`}
+                                            placeholder="email@exemplo.com"
+                                        />
+                                    </div>
+                                    <div className="md:col-span-6">
+                                        <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Telefone</label>
+                                        <input
+                                            value={formData.clientPhone}
+                                            readOnly={userType === 'existing'}
+                                            onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
+                                            className={`w-full px-4 py-2.5 border border-gray-200 rounded-full text-sm outline-none focus:ring-2 focus:ring-primary ${userType === 'existing' ? 'bg-gray-100 text-slate-500' : 'bg-gray-50'}`}
+                                            placeholder="(11) 99999-9999"
+                                        />
+                                    </div>
+                                </>
+                            )}
+
                             <div className="md:col-span-3">
                                 <label className="text-xs font-bold uppercase text-slate-400 mb-2 block">Data Início</label>
                                 <input
@@ -288,14 +365,14 @@ const RentalsPage: React.FC = () => {
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase ${rental.status === 'Ativa' ? 'bg-green-100 text-green-700' :
-                                                        rental.status === 'Finalizada' ? 'bg-gray-100 text-gray-700' :
-                                                            rental.status === 'Atrasada' ? 'bg-red-100 text-red-700' :
-                                                                'bg-amber-100 text-amber-700'
+                                                    rental.status === 'Finalizada' ? 'bg-gray-100 text-gray-700' :
+                                                        rental.status === 'Atrasada' ? 'bg-red-100 text-red-700' :
+                                                            'bg-amber-100 text-amber-700'
                                                     }`}>
                                                     <span className={`w-1.5 h-1.5 rounded-full ${rental.status === 'Ativa' ? 'bg-green-500' :
-                                                            rental.status === 'Finalizada' ? 'bg-gray-500' :
-                                                                rental.status === 'Atrasada' ? 'bg-red-500' :
-                                                                    'bg-amber-500'
+                                                        rental.status === 'Finalizada' ? 'bg-gray-500' :
+                                                            rental.status === 'Atrasada' ? 'bg-red-500' :
+                                                                'bg-amber-500'
                                                         }`} />
                                                     {rental.status}
                                                 </span>
